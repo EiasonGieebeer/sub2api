@@ -55,6 +55,8 @@ jobs:
             DATA_DIR=/data/sub2api
             NETWORK="${{ env.SUB2API_DOCKER_NETWORK }}"
             mkdir -p "$DATA_DIR/postgres" "$DATA_DIR/redis" "$DATA_DIR/app"
+            chown -R 70:70 "$DATA_DIR/postgres"
+            chown -R 999:1000 "$DATA_DIR/redis"
             test -f "$DATA_DIR/.env" || { echo "Missing $DATA_DIR/.env" >&2; exit 1; }
             docker load -i /tmp/sub2api.tar.gz
             rm -f /tmp/sub2api.tar.gz
@@ -70,10 +72,10 @@ jobs:
             docker run -d --name sub2api-redis --restart always --network "$NETWORK" \
               --env-file "$DATA_DIR/.env" -v "$DATA_DIR/redis:/data" \
               --memory=192m --memory-reservation=64m redis:8-alpine \
-              sh -c 'redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru $${REDIS_PASSWORD:+--requirepass "$$REDIS_PASSWORD"}'
+              sh -c 'redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru ${REDIS_PASSWORD:+--requirepass "$REDIS_PASSWORD"}'
             for i in $(seq 1 30); do
-              [ "$(docker inspect -f '{{.State.Health.Status}}' sub2api-postgres)" = healthy ] && break
-              [ "$i" -eq 30 ] && { docker logs sub2api-postgres; exit 1; }
+              if [ "$(docker inspect -f '{{.State.Health.Status}}' sub2api-postgres)" = healthy ]; then break; fi
+              if [ "$i" -eq 30 ]; then docker logs sub2api-postgres; exit 1; fi
               sleep 2
             done
             docker run -d --name sub2api --restart always --network "$NETWORK" \
