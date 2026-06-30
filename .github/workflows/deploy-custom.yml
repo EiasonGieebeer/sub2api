@@ -61,12 +61,23 @@ jobs:
             docker network inspect "$NETWORK" >/dev/null 2>&1 || docker network create "$NETWORK"
             docker rm -f sub2api sub2api-postgres sub2api-redis 2>/dev/null || true
             docker run -d --name sub2api-postgres --restart always --network "$NETWORK" \
-              --env-file "$DATA_DIR/.env" -v "$DATA_DIR/postgres:/var/lib/postgresql" postgres:18-alpine
+              --env-file "$DATA_DIR/.env" -v "$DATA_DIR/postgres:/var/lib/postgresql" \
+              --memory=448m --memory-reservation=256m --shm-size=96m \
+              --health-cmd='pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"' \
+              --health-interval=5s --health-timeout=3s --health-retries=20 \
+              postgres:18-alpine \
+              -c max_connections=80 -c shared_buffers=128MB -c effective_cache_size=320MB -c maintenance_work_mem=32MB
             docker run -d --name sub2api-redis --restart always --network "$NETWORK" \
-              --env-file "$DATA_DIR/.env" -v "$DATA_DIR/redis:/data" redis:8-alpine \
+              --env-file "$DATA_DIR/.env" -v "$DATA_DIR/redis:/data" \
+              --memory=192m --memory-reservation=64m redis:8-alpine \
               sh -c 'redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru $${REDIS_PASSWORD:+--requirepass "$$REDIS_PASSWORD"}'
+            for i in $(seq 1 30); do
+              [ "$(docker inspect -f '{{.State.Health.Status}}' sub2api-postgres)" = healthy ] && break
+              [ "$i" -eq 30 ] && { docker logs sub2api-postgres; exit 1; }
+              sleep 2
+            done
             docker run -d --name sub2api --restart always --network "$NETWORK" \
               --env-file "$DATA_DIR/.env" -e DATABASE_HOST=sub2api-postgres -e REDIS_HOST=sub2api-redis \
               -p "127.0.0.1:${{ env.SUB2API_HOST_PORT }}:8080" -v "$DATA_DIR/app:/app/data" \
-              --memory=768m sub2api:deploy
+              --memory=768m --memory-reservation=256m sub2api:deploy
             docker ps --filter name=sub2api
