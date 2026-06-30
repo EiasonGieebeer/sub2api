@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: sub2api-postgres-local
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:15432:5432"
+    environment:
+      POSTGRES_USER: sub2api
+      POSTGRES_PASSWORD: sub2api-local
+      POSTGRES_DB: sub2api
+      TZ: Asia/Shanghai
+    volumes:
+      - sub2api-postgres-local:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sub2api -d sub2api"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:8-alpine
+    container_name: sub2api-redis-local
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:16379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - sub2api-redis-local:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  sub2api-postgres-local:
+  sub2api-redis-local:

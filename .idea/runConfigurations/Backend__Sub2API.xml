@@ -1,0 +1,29 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Backend: Sub2API" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="sub2api" />
+    <working_directory value="$PROJECT_DIR$/backend" />
+    <envs>
+      <env name="AUTO_SETUP" value="true" />
+      <env name="SERVER_HOST" value="127.0.0.1" />
+      <env name="SERVER_PORT" value="8081" />
+      <env name="SERVER_MODE" value="debug" />
+      <env name="DATABASE_HOST" value="127.0.0.1" />
+      <env name="DATABASE_PORT" value="15432" />
+      <env name="DATABASE_USER" value="sub2api" />
+      <env name="DATABASE_PASSWORD" value="sub2api-local" />
+      <env name="DATABASE_DBNAME" value="sub2api" />
+      <env name="DATABASE_SSLMODE" value="disable" />
+      <env name="REDIS_HOST" value="127.0.0.1" />
+      <env name="REDIS_PORT" value="16379" />
+      <env name="ADMIN_EMAIL" value="admin@sub2api.local" />
+      <env name="ADMIN_PASSWORD" value="sub2api-local-admin" />
+      <env name="JWT_SECRET" value="local-development-jwt-secret-change-before-production" />
+      <env name="TOTP_ENCRYPTION_KEY" value="0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" />
+      <env name="LOG_OUTPUT_TO_FILE" value="false" />
+      <env name="TZ" value="Asia/Shanghai" />
+    </envs>
+    <kind value="DIRECTORY" />
+    <directory value="$PROJECT_DIR$/backend/cmd/server" />
+    <method v="2" />
+  </configuration>
+</component>

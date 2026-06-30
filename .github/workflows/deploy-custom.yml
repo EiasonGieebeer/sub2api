@@ -1,0 +1,72 @@
+name: Deploy Sub2API
+
+on:
+  push:
+    branches: [my-custom]
+    paths-ignore:
+      - "docs/**"
+      - "**/*.md"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-sub2api
+  cancel-in-progress: true
+
+env:
+  SUB2API_HOST_PORT: ${{ vars.SUB2API_HOST_PORT || '8081' }}
+  SUB2API_DOCKER_NETWORK: ${{ vars.SUB2API_DOCKER_NETWORK || 'ai-internal' }}
+
+jobs:
+  build-transfer-deploy:
+    if: ${{ vars.DEPLOY_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: sub2api:deploy
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Save and compress image
+        run: docker save sub2api:deploy | gzip > sub2api.tar.gz
+      - name: Copy image to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: sub2api.tar.gz
+          target: /tmp/
+      - name: Deploy on server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script_stop: true
+          command_timeout: 5m
+          script: |
+            set -Eeuo pipefail
+            DATA_DIR=/data/sub2api
+            NETWORK="${{ env.SUB2API_DOCKER_NETWORK }}"
+            mkdir -p "$DATA_DIR/postgres" "$DATA_DIR/redis" "$DATA_DIR/app"
+            test -f "$DATA_DIR/.env" || { echo "Missing $DATA_DIR/.env" >&2; exit 1; }
+            docker load -i /tmp/sub2api.tar.gz
+            rm -f /tmp/sub2api.tar.gz
+            docker network inspect "$NETWORK" >/dev/null 2>&1 || docker network create "$NETWORK"
+            docker rm -f sub2api sub2api-postgres sub2api-redis 2>/dev/null || true
+            docker run -d --name sub2api-postgres --restart always --network "$NETWORK" \
+              --env-file "$DATA_DIR/.env" -v "$DATA_DIR/postgres:/var/lib/postgresql" postgres:18-alpine
+            docker run -d --name sub2api-redis --restart always --network "$NETWORK" \
+              --env-file "$DATA_DIR/.env" -v "$DATA_DIR/redis:/data" redis:8-alpine \
+              sh -c 'redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru $${REDIS_PASSWORD:+--requirepass "$$REDIS_PASSWORD"}'
+            docker run -d --name sub2api --restart always --network "$NETWORK" \
+              --env-file "$DATA_DIR/.env" -e DATABASE_HOST=sub2api-postgres -e REDIS_HOST=sub2api-redis \
+              -p "127.0.0.1:${{ env.SUB2API_HOST_PORT }}:8080" -v "$DATA_DIR/app:/app/data" \
+              --memory=768m sub2api:deploy
+            docker ps --filter name=sub2api
