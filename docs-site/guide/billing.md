@@ -6,16 +6,16 @@
 
 ## 充值与订单
 
-在[「购买/充值」](https://www.fastapi.cool/purchase)选择可用商品并通过页面展示的渠道支付。付款后可在[「我的订单」](https://www.fastapi.cool/orders)查看状态。
+在[「购买/充值」](https://sub.fastapi.cool/purchase)选择可用商品并通过页面展示的渠道支付。付款后可在[「我的订单」](https://sub.fastapi.cool/orders)查看状态。
 
 不要向个人账户转账，也不要相信索要密码、完整 API Key、邮箱验证码或 TOTP 密钥的所谓客服。
 
 ## 订阅
 
-在[「我的订阅」](https://www.fastapi.cool/subscriptions)查看套餐状态、有效期和已用额度。套餐可能限制周期额度、并发、模型范围或有效期，购买前请阅读页面说明。
+在[「我的订阅」](https://sub.fastapi.cool/subscriptions)查看套餐状态、有效期和已用额度。套餐可能限制周期额度、并发、模型范围或有效期，购买前请阅读页面说明。
 
 ## 异常扣费处理
 
 如发现重复支付、余额未到账或明显计费异常，请保留订单号、支付时间、请求时间及相关截图，通过 `fast.api@qq.com` 联系客服。不要发送完整密钥。
 
-退款条件和处理方式请查看[退款政策](https://www.fastapi.cool/legal/refund)。
+退款条件和处理方式请查看[退款政策](https://sub.fastapi.cool/legal/refund)。

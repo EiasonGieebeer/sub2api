@@ -1,6 +1,6 @@
 import { defineConfig, type DefaultTheme } from 'vitepress'
 
-const consoleUrl = 'https://www.fastapi.cool'
+const consoleUrl = 'https://sub.fastapi.cool'
 
 const themeConfig: DefaultTheme.Config = {
   logo: '/logo.png',

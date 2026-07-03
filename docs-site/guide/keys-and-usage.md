@@ -2,7 +2,7 @@
 
 ## API Key 管理
 
-在[「API 密钥」](https://www.fastapi.cool/keys)页面创建和管理密钥。推荐：
+在[「API 密钥」](https://sub.fastapi.cool/keys)页面创建和管理密钥。推荐：
 
 - 开发、测试和生产环境分别使用不同密钥；
 - 为每个应用设置独立额度和有效期；
@@ -12,9 +12,9 @@
 
 ## 查看用量
 
-[「使用记录」](https://www.fastapi.cool/usage)提供请求明细和统计信息，包括模型、Token、费用、状态、耗时及请求时间。最终扣费以系统记录为准。
+[「使用记录」](https://sub.fastapi.cool/usage)提供请求明细和统计信息，包括模型、Token、费用、状态、耗时及请求时间。最终扣费以系统记录为准。
 
-公开的[密钥用量查询](https://www.fastapi.cool/key-usage)可用于查询指定密钥状态。不要在不可信设备或网页中输入密钥。
+公开的[密钥用量查询](https://sub.fastapi.cool/key-usage)可用于查询指定密钥状态。不要在不可信设备或网页中输入密钥。
 
 ## 额度和限流
 

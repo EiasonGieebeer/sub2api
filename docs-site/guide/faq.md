@@ -2,9 +2,9 @@
 
 ## Base URL 应该填什么？
 
-- OpenAI 兼容客户端：`https://www.fastapi.cool/v1`
-- Claude Code / Anthropic：`https://www.fastapi.cool`
-- Gemini 原生接口：`https://www.fastapi.cool`
+- OpenAI 兼容客户端：`https://sub.fastapi.cool/v1`
+- Claude Code / Anthropic：`https://sub.fastapi.cool`
+- Gemini 原生接口：`https://sub.fastapi.cool`
 
 不要把 `/chat/completions` 重复附加到已经要求填写完整地址的客户端字段中。
 

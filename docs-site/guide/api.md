@@ -41,7 +41,7 @@ from openai import OpenAI
 
 client = OpenAI(
     api_key="YOUR_API_KEY",
-    base_url="https://www.fastapi.cool/v1",
+    base_url="https://sub.fastapi.cool/v1",
 )
 
 response = client.responses.create(
@@ -58,7 +58,7 @@ import OpenAI from "openai";
 
 const client = new OpenAI({
   apiKey: process.env.FAST_API_KEY,
-  baseURL: "https://www.fastapi.cool/v1",
+  baseURL: "https://sub.fastapi.cool/v1",
 });
 
 const response = await client.responses.create({
@@ -71,7 +71,7 @@ console.log(response.output_text);
 ## Anthropic Messages
 
 ```bash
-curl https://www.fastapi.cool/v1/messages \
+curl https://sub.fastapi.cool/v1/messages \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "anthropic-version: 2023-06-01" \
   -H "Content-Type: application/json" \
@@ -85,7 +85,7 @@ curl https://www.fastapi.cool/v1/messages \
 ## Gemini 原生接口
 
 ```bash
-curl "https://www.fastapi.cool/v1beta/models/MODEL_ID:generateContent" \
+curl "https://sub.fastapi.cool/v1beta/models/MODEL_ID:generateContent" \
   -H "x-goog-api-key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"contents":[{"parts":[{"text":"Hello"}]}]}'

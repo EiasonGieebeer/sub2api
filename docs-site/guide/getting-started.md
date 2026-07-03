@@ -2,11 +2,11 @@
 
 ## 1. 注册并登录
 
-打开 [Fast API 控制台](https://www.fastapi.cool/register)，完成邮箱验证并登录。建议进入个人资料立即启用 TOTP 二次验证。
+打开 [Fast API 控制台](https://sub.fastapi.cool/register)，完成邮箱验证并登录。建议进入个人资料立即启用 TOTP 二次验证。
 
 ## 2. 创建 API Key
 
-进入[「API 密钥」](https://www.fastapi.cool/keys)，点击创建密钥。建议按用途分别创建，并设置：
+进入[「API 密钥」](https://sub.fastapi.cool/keys)，点击创建密钥。建议按用途分别创建，并设置：
 
 - 容易识别的名称；
 - 合理的额度上限和有效期；
@@ -18,7 +18,7 @@
 ## 3. 获取可用模型
 
 ```bash
-curl https://www.fastapi.cool/v1/models \
+curl https://sub.fastapi.cool/v1/models \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -29,7 +29,7 @@ curl https://www.fastapi.cool/v1/models \
 以下示例使用 OpenAI Chat Completions。请将 `MODEL_ID` 替换为真实可用模型：
 
 ```bash
-curl https://www.fastapi.cool/v1/chat/completions \
+curl https://sub.fastapi.cool/v1/chat/completions \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -45,4 +45,4 @@ curl https://www.fastapi.cool/v1/chat/completions \
 
 ## 5. 查看调用记录
 
-登录后进入[「使用记录」](https://www.fastapi.cool/usage)，可核对模型、Token、费用、状态和耗时。遇到错误时记录请求时间和请求 ID，再联系客服；不要发送完整 API Key。
+登录后进入[「使用记录」](https://sub.fastapi.cool/usage)，可核对模型、Token、费用、状态和耗时。遇到错误时记录请求时间和请求 ID，再联系客服；不要发送完整 API Key。

@@ -14,10 +14,10 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: 创建 API Key
-      link: https://www.fastapi.cool/keys
+      link: https://sub.fastapi.cool/keys
     - theme: alt
       text: 进入控制台
-      link: https://www.fastapi.cool/dashboard
+      link: https://sub.fastapi.cool/dashboard
 
 features:
   - title: 多协议兼容
@@ -36,10 +36,10 @@ features:
 
 | 项目 | 内容 |
 | --- | --- |
-| 控制台 | `https://www.fastapi.cool` |
-| OpenAI Base URL | `https://www.fastapi.cool/v1` |
-| Anthropic Base URL | `https://www.fastapi.cool` |
-| Gemini Base URL | `https://www.fastapi.cool` |
+| 控制台 | `https://sub.fastapi.cool` |
+| OpenAI Base URL | `https://sub.fastapi.cool/v1` |
+| Anthropic Base URL | `https://sub.fastapi.cool` |
+| Gemini Base URL | `https://sub.fastapi.cool` |
 | API Key | 在控制台的「API 密钥」页面创建 |
 | 模型名称 | 通过 `/v1/models` 或控制台当前可用模型获取 |
 
