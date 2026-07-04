@@ -6,7 +6,7 @@ hero:
   text: Sub2API 网关接入文档
   tagline: 一个 API Key 接入站内已开放的模型，并统一查看额度、订阅和调用记录。
   image:
-    src: /logo.png
+    src: /logo.svg
     alt: Fast API
   actions:
     - theme: brand
