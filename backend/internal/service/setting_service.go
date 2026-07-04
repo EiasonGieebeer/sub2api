@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/rand"
 	"crypto/sha256"
+	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
@@ -25,6 +26,25 @@ import (
 	"github.com/imroc/req/v3"
 	"golang.org/x/sync/singleflight"
 )
+
+const legacySiteLogoSHA256 = "4e08a16a8e952c61886fb1e6b91070aa62297c1dd7d87d6dcb9a8bccd10f402f"
+
+func normalizeLegacySiteLogo(value string) string {
+	const prefix = "data:image/png;base64,"
+	if !strings.HasPrefix(value, prefix) {
+		return value
+	}
+
+	data, err := base64.StdEncoding.DecodeString(strings.TrimPrefix(value, prefix))
+	if err != nil {
+		return value
+	}
+	sum := sha256.Sum256(data)
+	if hex.EncodeToString(sum[:]) == legacySiteLogoSHA256 {
+		return "/logo.svg"
+	}
+	return value
+}
 
 // CoerceDingTalkCorpPolicyForWrite 是 coerceDeprecatedDingTalkCorpPolicy 的导出版本，
 // 用于 admin handler 在写入路径上对客户端直传的入参做防御性 coerce（前端 UI 虽已无 whitelist 选项，
@@ -912,7 +932,7 @@ func (s *SettingService) GetPublicSettings(ctx context.Context) (*PublicSettings
 		TurnstileEnabled:                 settings[SettingKeyTurnstileEnabled] == "true",
 		TurnstileSiteKey:                 settings[SettingKeyTurnstileSiteKey],
 		SiteName:                         s.getStringOrDefault(settings, SettingKeySiteName, "Sub2API"),
-		SiteLogo:                         settings[SettingKeySiteLogo],
+		SiteLogo:                         normalizeLegacySiteLogo(settings[SettingKeySiteLogo]),
 		SiteSubtitle:                     s.getStringOrDefault(settings, SettingKeySiteSubtitle, "Subscription to API Conversion Platform"),
 		APIBaseURL:                       settings[SettingKeyAPIBaseURL],
 		ContactInfo:                      settings[SettingKeyContactInfo],
@@ -3252,7 +3272,7 @@ func (s *SettingService) parseSettings(settings map[string]string) *SystemSettin
 		TurnstileSecretKeyConfigured:     settings[SettingKeyTurnstileSecretKey] != "",
 		APIKeyACLTrustForwardedIP:        apiKeyACLTrustForwardedIP,
 		SiteName:                         s.getStringOrDefault(settings, SettingKeySiteName, "Sub2API"),
-		SiteLogo:                         settings[SettingKeySiteLogo],
+		SiteLogo:                         normalizeLegacySiteLogo(settings[SettingKeySiteLogo]),
 		SiteSubtitle:                     s.getStringOrDefault(settings, SettingKeySiteSubtitle, "Subscription to API Conversion Platform"),
 		APIBaseURL:                       settings[SettingKeyAPIBaseURL],
 		ContactInfo:                      settings[SettingKeyContactInfo],
