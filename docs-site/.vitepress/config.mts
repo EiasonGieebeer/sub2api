@@ -3,7 +3,7 @@ import { defineConfig, type DefaultTheme } from 'vitepress'
 const consoleUrl = 'https://sub.fastapi.cool'
 
 const themeConfig: DefaultTheme.Config = {
-  logo: '/logo.png',
+  logo: '/logo.svg',
   siteTitle: 'Fast API 文档',
   nav: [
     { text: '快速开始', link: '/guide/getting-started' },
@@ -53,6 +53,6 @@ export default defineConfig({
   description: 'Fast API（基于 Sub2API）接入与使用文档',
   cleanUrls: true,
   lastUpdated: true,
-  head: [['link', { rel: 'icon', type: 'image/png', href: '/logo.png' }]],
+  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]],
   themeConfig,
 })
