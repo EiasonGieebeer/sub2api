@@ -416,6 +416,7 @@
             rel="noopener noreferrer"
             class="text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-dark-400 dark:hover:text-white"
           >苏ICP备2024120285号-2</a>
+          <PublicSecurityFiling class="text-sm text-gray-500 dark:text-dark-400" />
         </div>
       </div>
     </footer>
@@ -428,6 +429,7 @@ import { useI18n } from 'vue-i18n'
 import { useAppStore } from '@/stores'
 import LocaleSwitcher from '@/components/common/LocaleSwitcher.vue'
 import Icon from '@/components/icons/Icon.vue'
+import PublicSecurityFiling from '@/components/layout/PublicSecurityFiling.vue'
 import { buildGatewayUrl } from '@/api/client'
 
 const { t, locale } = useI18n()

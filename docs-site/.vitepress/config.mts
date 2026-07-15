@@ -42,7 +42,7 @@ const themeConfig: DefaultTheme.Config = {
   sidebarMenuLabel: '菜单',
   darkModeSwitchLabel: '主题',
   footer: {
-    message: '请妥善保管 API 密钥，并遵守适用法律法规。 · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">苏ICP备2024120285号-2</a>',
+    message: '请妥善保管 API 密钥，并遵守适用法律法规。 · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">苏ICP备2024120285号-2</a> · <a href="https://beian.mps.gov.cn/#/query/webSearch?code=32128302002088" target="_blank" rel="noreferrer">苏公网安备32128302002088号</a>',
     copyright: '© 2026 Fast API',
   },
 }

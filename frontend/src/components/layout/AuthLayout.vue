@@ -63,6 +63,7 @@
           rel="noopener noreferrer"
           class="mt-2 inline-block transition-colors hover:text-gray-600 dark:hover:text-dark-300"
         >苏ICP备2024120285号-2</a>
+        <PublicSecurityFiling class="mt-2 inline-block" />
       </div>
     </div>
   </div>
@@ -72,6 +73,7 @@
 import { computed, onMounted } from 'vue'
 import { useAppStore } from '@/stores'
 import { sanitizeUrl } from '@/utils/url'
+import PublicSecurityFiling from './PublicSecurityFiling.vue'
 
 const appStore = useAppStore()
 

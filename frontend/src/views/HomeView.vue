@@ -406,6 +406,7 @@
           >
             苏ICP备2024120285号-2
           </a>
+          <PublicSecurityFiling class="text-sm text-gray-500 dark:text-dark-400" />
         </div>
       </div>
     </footer>
@@ -418,6 +419,7 @@ import { useI18n } from 'vue-i18n'
 import { useAuthStore, useAppStore } from '@/stores'
 import LocaleSwitcher from '@/components/common/LocaleSwitcher.vue'
 import Icon from '@/components/icons/Icon.vue'
+import PublicSecurityFiling from '@/components/layout/PublicSecurityFiling.vue'
 
 const { t } = useI18n()
 
