@@ -2,8 +2,8 @@
 layout: home
 
 hero:
-  name: Fast API
-  text: Sub2API 网关接入文档
+  name: Fast API 网关接入文档
+  text: ''
   tagline: 注册登录后创建 API Key，查看可用渠道和模型，按需充值、订阅、兑换，并统一核对订单、额度和调用记录。
   image:
     src: /logo.svg
