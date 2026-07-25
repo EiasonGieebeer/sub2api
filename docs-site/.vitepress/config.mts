@@ -42,14 +42,14 @@ const themeConfig: DefaultTheme.Config = {
   sidebarMenuLabel: '菜单',
   darkModeSwitchLabel: '主题',
   footer: {
-    message: '© 2026 Sub2API · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">苏ICP备2024120285号-2</a> · <a href="https://beian.mps.gov.cn/#/query/webSearch?code=32128302002088" target="_blank" rel="noreferrer">苏公网安备32128302002088号</a>',
+    message: '© 2026 Fast API · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">苏ICP备2024120285号-2</a> · <a href="https://beian.mps.gov.cn/#/query/webSearch?code=32128302002088" target="_blank" rel="noreferrer">苏公网安备32128302002088号</a>',
   },
 }
 
 export default defineConfig({
   lang: 'zh-CN',
   title: 'Fast API 文档',
-  description: 'Fast API（基于 Sub2API）接入与使用文档',
+  description: 'Fast API 网关接入与使用文档',
   cleanUrls: true,
   lastUpdated: true,
   head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]],
