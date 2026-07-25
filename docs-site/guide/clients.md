@@ -10,6 +10,10 @@
 
 模型名称必须使用当前密钥实际可访问的模型 ID。
 
+::: tip
+建议先在控制台查看[可用渠道](https://sub.fastapi.cool/available-channels)，再调用 `/v1/models` 确认当前 API Key 实际可访问的模型。客户端里手动填写的模型名必须与返回的模型 ID 一致。
+:::
+
 ## Codex CLI
 
 ::: danger 地区限制

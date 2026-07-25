@@ -12,3 +12,7 @@
 :::
 
 统一客服邮箱：[fast.api@qq.com](mailto:fast.api@qq.com)。请勿在邮件中发送密码、完整 API Key、验证码或 TOTP 密钥。
+
+## 备案信息
+
+[苏ICP备2024120285号-2](https://beian.miit.gov.cn/) · [苏公网安备32128302002088号](https://beian.mps.gov.cn/#/query/webSearch?code=32128302002088)
