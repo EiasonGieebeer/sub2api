@@ -2,13 +2,15 @@
 
 ## 1. 注册并登录
 
-打开 [Fast API 控制台](https://sub.fastapi.cool/register)，完成邮箱验证并登录。建议进入个人资料立即启用 TOTP 二次验证。
+打开 [Fast API 控制台](https://sub.fastapi.cool/register)，按页面提示完成人机验证、邮箱验证并登录。注册或第三方登录首次创建账号时是否需要人机验证，以站点当前安全配置为准。
+
+登录后建议进入[「个人资料」](https://sub.fastapi.cool/profile)启用 TOTP 二次验证。如果页面提供 Passkey（通行密钥），也可以在验证当前密码后绑定设备，用于更安全、便捷地登录；该能力取决于浏览器、设备和站点配置。
 
 ## 2. 查看可用渠道和模型
 
-进入[「可用渠道」](https://sub.fastapi.cool/available-channels)查看当前账号可访问的渠道、分组、支持模型和价格信息。需要排查服务状态时，可打开[「渠道状态」](https://sub.fastapi.cool/monitor)查看近期可用性和延迟。
+先打开[「模型广场」](https://sub.fastapi.cool/model-plaza)浏览站点公开的模型、分组与价格。模型广场可能由管理员关闭或要求登录；登录后还可进入[「可用渠道」](https://sub.fastapi.cool/available-channels)，查看当前账号实际可访问的渠道、分组、支持模型和价格信息。需要排查服务状态时，可打开[「渠道状态」](https://sub.fastapi.cool/monitor)查看近期可用性和延迟。
 
-模型、价格和可用协议可能随账号分组、订阅状态和管理员配置变化。实际调用前建议先查询 `/v1/models`。
+模型广场用于选型参考；模型、价格和可用协议可能随账号分组、订阅状态和管理员配置变化。实际调用前仍应查询 `/v1/models`，并以当前 API Key 的接口返回为准。
 
 ## 3. 充值、订阅或兑换
 
