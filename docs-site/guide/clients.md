@@ -40,6 +40,8 @@ export FAST_API_KEY="YOUR_API_KEY"
 codex
 ```
 
+网关管理员通常应让 Codex 上游身份和客户端版本保持自动同步；只有上游明确要求固定版本或自定义终端指纹时才需要覆盖。自定义后也应确保 User-Agent 首段、尾部身份和 `version` 头使用同一版本，避免陈旧身份影响上游路由。
+
 ## Claude Code
 
 ```bash
