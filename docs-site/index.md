@@ -21,7 +21,7 @@ hero:
 
 features:
   - title: 多协议兼容
-    details: 支持 OpenAI Responses、Chat Completions、Anthropic Messages 和 Gemini 原生接口。
+    details: 支持 OpenAI Responses、Chat Completions、Anthropic Messages、Gemini 原生接口，以及按分组开放的搜索、视频和语音能力。
   - title: 渠道与额度透明
     details: 可通过模型广场了解模型与价格，并在控制台查看可用渠道、渠道状态、订阅套餐、余额和订单状态。
   - title: 密钥与风控可控

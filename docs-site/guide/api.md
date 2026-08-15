@@ -22,11 +22,18 @@ Gemini 原生客户端也可使用 `x-goog-api-key`。不要把密钥放在浏�
 | Embeddings | `POST /v1/embeddings` |
 | 图片生成 | `POST /v1/images/generations` |
 | 图片编辑 | `POST /v1/images/edits` |
+| 视频创建与查询 | `POST /v1/videos`、`GET /v1/videos/{request_id}` |
+| Grok Web / X 搜索 | `POST /v1/web_search`、`POST /v1/x_search` |
+| Grok 语音合成 / 识别 | `POST /v1/tts`、`POST /v1/stt` |
+| Grok 自定义语音 | `/v1/custom-voices` 及其 `{voice_id}` 子路径 |
+| Grok Realtime | `GET /v1/realtime`（WebSocket） |
 | Gemini 模型列表 | `GET /v1beta/models` |
 | Gemini 内容生成 | `POST /v1beta/models/{model}:generateContent` |
 | Gemini 流式生成 | `POST /v1beta/models/{model}:streamGenerateContent?alt=sse` |
 
-并非所有分组或模型都支持表中全部接口。请先查询模型，并根据客户端和模型选择对应协议。
+并非所有分组或模型都支持表中全部接口。视频、搜索、语音和 Realtime 还取决于分组平台、上游账号能力及管理员是否完成对应价格和功能配置；当前实现中的 Grok 搜索与语音路由只对 Grok 分组开放。请先查询模型，并根据客户端和模型选择对应协议。
+
+视频任务还可通过 `/v1/videos/generations`、`/v1/videos/edits`、`/v1/videos/extensions` 创建，并用对应的 `{request_id}` 状态或 `content` 子路径查询。异步媒体请求应保留创建接口返回的请求 ID，轮询到完成状态后再下载结果。
 
 ## OpenAI SDK
 
