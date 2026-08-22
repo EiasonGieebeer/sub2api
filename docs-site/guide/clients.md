@@ -81,6 +81,8 @@ Gemini 原生请求使用 `/v1beta` 路径和 `x-goog-api-key` 请求头。请�
 
 客户端是否支持自定义地址、Responses、工具调用和多模态由客户端自身决定。
 
+当密钥所属分组由 Kimi、智谱或 DeepSeek 渠道提供服务时，客户端仍使用本站统一地址。管理员可为上游账号选择 Chat Completions、Anthropic 或自适应协议；DeepSeek 账号还可选择原生 Responses。客户端无需、也不应填写上游供应商的账号地址或密钥。
+
 ## Grok CLI 与媒体能力
 
 当 API Key 所属分组为 Grok 时，「API 密钥」页面的使用说明可按当前平台生成 Grok CLI、Claude Code、Codex CLI 或 OpenCode 示例。优先复制页面生成的配置，避免把 OpenAI、Anthropic 与 Grok 的认证变量混用。

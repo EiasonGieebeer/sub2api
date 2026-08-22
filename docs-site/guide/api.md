@@ -16,6 +16,8 @@ Gemini 原生客户端也可使用 `x-goog-api-key`。不要把密钥放在浏�
 | --- | --- |
 | 查询模型 | `GET /v1/models` |
 | OpenAI Responses | `POST /v1/responses` |
+| Responses 输入 Token 预检 | `POST /v1/responses/input_tokens` |
+| Responses 上下文压缩 | `POST /v1/responses/compact` |
 | OpenAI Chat Completions | `POST /v1/chat/completions` |
 | Anthropic Messages | `POST /v1/messages` |
 | Anthropic Token 计数 | `POST /v1/messages/count_tokens` |
@@ -31,7 +33,9 @@ Gemini 原生客户端也可使用 `x-goog-api-key`。不要把密钥放在浏�
 | Gemini 内容生成 | `POST /v1beta/models/{model}:generateContent` |
 | Gemini 流式生成 | `POST /v1beta/models/{model}:streamGenerateContent?alt=sse` |
 
-并非所有分组或模型都支持表中全部接口。视频、搜索、语音和 Realtime 还取决于分组平台、上游账号能力及管理员是否完成对应价格和功能配置；当前实现中的 Grok 搜索与语音路由只对 Grok 分组开放。请先查询模型，并根据客户端和模型选择对应协议。
+并非所有分组或模型都支持表中全部接口。`/v1/responses/input_tokens` 与 `/v1/responses/compact` 仅在对应上游和账号能力可用时生效。视频、搜索、语音和 Realtime 还取决于分组平台、上游账号能力及管理员是否完成对应价格和功能配置；当前实现中的 Grok 搜索与语音路由只对 Grok 分组开放。请先查询模型，并根据客户端和模型选择对应协议。
+
+复合分组可按模型把 Chat Completions、Responses、Anthropic Messages、Token 计数和部分媒体请求路由到不同平台。当前网关也支持把 Kimi、智谱和 DeepSeek 账号接入兼容协议；具体能否使用 Chat Completions、Anthropic Messages 或 Responses，取决于管理员为该账号选择的原生或自适应协议，其中原生 Responses 目前只适用于 DeepSeek。终端用户不应根据供应商名称猜测协议，仍应以 `/v1/models`、密钥分组和实际请求结果为准。
 
 视频任务还可通过 `/v1/videos/generations`、`/v1/videos/edits`、`/v1/videos/extensions` 创建，并用对应的 `{request_id}` 状态或 `content` 子路径查询。异步媒体请求应保留创建接口返回的请求 ID，轮询到完成状态后再下载结果。
 
@@ -113,4 +117,4 @@ curl "https://sub.fastapi.cool/v1beta/models/MODEL_ID:generateContent" \
 | `429` | 速率、并发或上游配额限制 |
 | `5xx` | 网关或上游暂时异常 |
 
-具体原因以响应体和控制台使用记录为准。
+具体原因以响应体和控制台使用记录为准。响应头或响应体提供请求 ID 时请一并保存；运营错误详情中的模型配置错误可能不计入渠道 SLA，因此“渠道状态正常”不代表任意模型名都有效。
