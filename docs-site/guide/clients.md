@@ -40,6 +40,8 @@ export FAST_API_KEY="YOUR_API_KEY"
 codex
 ```
 
+在「API 密钥」页面打开密钥使用说明并切换到 Codex 时，页面会用当前密钥请求 `/v1/models` 并提供模型目录下载。将下载的 `codex-models.json` 保存到页面提示的 `~/.codex/`（Windows 为 `%userprofile%\.codex`）路径，并让 `config.toml` 的 `model_catalog_json` 指向它；目录文件不包含 API Key。该目录尤其用于 DeepSeek、Grok、智谱、Kimi 或复合路由分组，实际内容仍由当前 API Key 决定。获取目录失败时先检查密钥、分组与模型权限，不要改用模型广场内容手工替代。
+
 网关管理员通常应让 Codex 上游身份和客户端版本保持自动同步；只有上游明确要求固定版本或自定义终端指纹时才需要覆盖。自定义后也应确保 User-Agent 首段、尾部身份和 `version` 头使用同一版本，避免陈旧身份影响上游路由。
 
 ## Claude Code

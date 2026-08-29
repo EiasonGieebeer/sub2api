@@ -106,6 +106,8 @@ curl "https://sub.fastapi.cool/v1beta/models/MODEL_ID:generateContent" \
 
 支持流式输出的接口可设置 `"stream": true`，Gemini 使用 `streamGenerateContent?alt=sse`。客户端应设置合理的连接和读取超时；只对可安全重试的请求采用指数退避，并避免因重复提交产生重复计费。
 
+OpenAI Responses 路径可使用 HTTP/SSE 或 WebSocket，具体由账号、客户端和管理员网关设置决定。客户端传入的 `prompt_cache_key`、Codex/Claude Code 会话标识、模型范围与工具参数会尽量在路由切换和故障转移时保持；不要依赖自行伪造的会话头跨用户共享粘性。请求 `service_tier` 时只使用接口支持的值，未知值可能被过滤或拒绝；实际结算层级可在使用记录中核对。
+
 ## 错误排查
 
 | 状态码 | 常见含义 |

@@ -30,6 +30,10 @@ const themeConfig: DefaultTheme.Config = {
         { text: '服务与合规', link: '/legal/' },
       ],
     },
+    {
+      text: '管理与运维',
+      items: [{ text: '管理员配置与运维', link: '/guide/admin' }],
+    },
   ],
   search: { provider: 'local' },
   outline: { level: [2, 3], label: '本页目录' },
