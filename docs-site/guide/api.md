@@ -35,7 +35,7 @@ Gemini 原生客户端也可使用 `x-goog-api-key`。不要把密钥放在浏�
 
 并非所有分组或模型都支持表中全部接口。`/v1/responses/input_tokens` 与 `/v1/responses/compact` 仅在对应上游和账号能力可用时生效。视频、搜索、语音和 Realtime 还取决于分组平台、上游账号能力及管理员是否完成对应价格和功能配置；当前实现中的 Grok 搜索与语音路由只对 Grok 分组开放。请先查询模型，并根据客户端和模型选择对应协议。
 
-复合分组可按模型把 Chat Completions、Responses、Anthropic Messages、Token 计数和部分媒体请求路由到不同平台。当前网关也支持把 Kimi、智谱和 DeepSeek 账号接入兼容协议；具体能否使用 Chat Completions、Anthropic Messages 或 Responses，取决于管理员为该账号选择的原生或自适应协议，其中原生 Responses 目前只适用于 DeepSeek。终端用户不应根据供应商名称猜测协议，仍应以 `/v1/models`、密钥分组和实际请求结果为准。
+复合分组可按模型把 Chat Completions、Responses、Anthropic Messages、Token 计数和部分媒体请求路由到不同平台。当前网关也支持把 Kimi、智谱和 DeepSeek 账号接入兼容协议；具体能否使用 Chat Completions、Anthropic Messages 或 Responses，取决于管理员为该账号选择的原生或自适应协议，其中 Kimi 与 DeepSeek 可按账号配置使用原生 Responses。终端用户不应根据供应商名称猜测协议，仍应以 `/v1/models`、密钥分组和实际请求结果为准。
 
 视频任务还可通过 `/v1/videos/generations`、`/v1/videos/edits`、`/v1/videos/extensions` 创建，并用对应的 `{request_id}` 状态或 `content` 子路径查询。异步媒体请求应保留创建接口返回的请求 ID，轮询到完成状态后再下载结果。
 
@@ -106,7 +106,7 @@ curl "https://sub.fastapi.cool/v1beta/models/MODEL_ID:generateContent" \
 
 支持流式输出的接口可设置 `"stream": true`，Gemini 使用 `streamGenerateContent?alt=sse`。客户端应设置合理的连接和读取超时；只对可安全重试的请求采用指数退避，并避免因重复提交产生重复计费。
 
-OpenAI Responses 路径可使用 HTTP/SSE 或 WebSocket，具体由账号、客户端和管理员网关设置决定。客户端传入的 `prompt_cache_key`、Codex/Claude Code 会话标识、模型范围与工具参数会尽量在路由切换和故障转移时保持；不要依赖自行伪造的会话头跨用户共享粘性。请求 `service_tier` 时只使用接口支持的值，未知值可能被过滤或拒绝；实际结算层级可在使用记录中核对。
+OpenAI Responses 路径可使用 HTTP/SSE 或 WebSocket，具体由账号、客户端和管理员网关设置决定。客户端传入的 `prompt_cache_key`、Codex/Claude Code 会话标识、模型范围与工具参数会尽量在路由切换和故障转移时保持；不要依赖自行伪造的会话头跨用户共享粘性。请求 `service_tier` 时只使用接口支持的 `auto`、`default`、`fast`、`priority`、`ultrafast`、`flex` 或 `scale`；管理员策略可能过滤、改写或拒绝，实际结算层级可在使用记录中核对。
 
 ## 错误排查
 
