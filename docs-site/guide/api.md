@@ -14,7 +14,7 @@ Gemini 原生客户端也可使用 `x-goog-api-key`。不要把密钥放在浏�
 
 | 协议或用途 | 方法与路径 |
 | --- | --- |
-| 查询模型 | `GET /v1/models` |
+| 查询模型 | `GET /v1/models`、`GET /v1/models/{model}` |
 | OpenAI Responses | `POST /v1/responses` |
 | Responses 输入 Token 预检 | `POST /v1/responses/input_tokens` |
 | Responses 上下文压缩 | `POST /v1/responses/compact` |
@@ -33,9 +33,9 @@ Gemini 原生客户端也可使用 `x-goog-api-key`。不要把密钥放在浏�
 | Gemini 内容生成 | `POST /v1beta/models/{model}:generateContent` |
 | Gemini 流式生成 | `POST /v1beta/models/{model}:streamGenerateContent?alt=sse` |
 
-并非所有分组或模型都支持表中全部接口。`/v1/responses/input_tokens` 与 `/v1/responses/compact` 仅在对应上游和账号能力可用时生效。视频、搜索、语音和 Realtime 还取决于分组平台、上游账号能力及管理员是否完成对应价格和功能配置；当前实现中的 Grok 搜索与语音路由只对 Grok 分组开放。请先查询模型，并根据客户端和模型选择对应协议。
+并非所有分组或模型都支持表中全部接口。管理员启用分组模型白名单后，模型列表和单模型查询只返回允许项，各网关入口也会在路由与调度前拒绝不在名单中的客户端模型；不能通过复合路由、WebSocket 后续轮次或媒体接口绕过。`/v1/responses/input_tokens` 与 `/v1/responses/compact` 仅在对应上游和账号能力可用时生效。视频、搜索、语音和 Realtime 还取决于分组平台、上游账号能力及管理员是否完成对应价格和功能配置；当前实现中的 Grok 搜索与语音路由只对 Grok 分组开放。请先查询模型，并根据客户端和模型选择对应协议。
 
-复合分组可按模型把 Chat Completions、Responses、Anthropic Messages、Token 计数和部分媒体请求路由到不同平台。当前网关也支持把 Kimi、智谱和 DeepSeek 账号接入兼容协议；具体能否使用 Chat Completions、Anthropic Messages 或 Responses，取决于管理员为该账号选择的原生或自适应协议，其中 Kimi 与 DeepSeek 可按账号配置使用原生 Responses。终端用户不应根据供应商名称猜测协议，仍应以 `/v1/models`、密钥分组和实际请求结果为准。
+复合分组可按模型把 Chat Completions、Responses、Anthropic Messages、Token 计数和部分媒体请求路由到不同平台。当前网关也支持把 Kimi、智谱、DeepSeek、MiniMax 与 OpenCode 账号接入兼容协议；具体能否使用 Chat Completions、Anthropic Messages 或 Responses，取决于管理员为该账号选择的原生、自适应或模型匹配协议，其中 Kimi 与 DeepSeek 可按账号配置使用原生 Responses，OpenCode 区分 Zen/GO 账号类型。终端用户不应根据供应商名称猜测协议，仍应以 `/v1/models`、密钥分组和实际请求结果为准。
 
 视频任务还可通过 `/v1/videos/generations`、`/v1/videos/edits`、`/v1/videos/extensions` 创建，并用对应的 `{request_id}` 状态或 `content` 子路径查询。异步媒体请求应保留创建接口返回的请求 ID，轮询到完成状态后再下载结果。
 

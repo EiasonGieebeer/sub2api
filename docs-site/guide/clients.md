@@ -40,7 +40,7 @@ export FAST_API_KEY="YOUR_API_KEY"
 codex
 ```
 
-在「API 密钥」页面打开密钥使用说明并切换到 Codex 时，页面会用当前密钥请求 `/v1/models` 并提供模型目录下载。将下载的 `codex-models.json` 保存到页面提示的 `~/.codex/`（Windows 为 `%userprofile%\.codex`）路径，并让 `config.toml` 的 `model_catalog_json` 指向它；目录文件不包含 API Key。该目录尤其用于 DeepSeek、Grok、智谱、Kimi 或复合路由分组，实际内容仍由当前 API Key 决定。管理员可能为分组固定若干上游账号合并 Codex manifest，这只改变目录获取来源，不扩大当前密钥的调用权限。获取目录失败时先检查密钥、分组与模型权限，不要改用模型广场内容手工替代。
+在「API 密钥」页面打开密钥使用说明并切换到 Codex 时，页面会用当前密钥请求 `/v1/models` 并提供模型目录下载。将下载的 `codex-models.json` 保存到页面提示的 `~/.codex/`（Windows 为 `%userprofile%\.codex`）路径，并让 `config.toml` 的 `model_catalog_json` 指向它；目录文件不包含 API Key。该目录尤其用于 DeepSeek、Grok、智谱、Kimi、MiniMax、OpenCode 或复合路由分组，实际内容仍由当前 API Key 和分组模型白名单决定。管理员可能为分组固定若干上游账号合并 Codex manifest，这只改变目录获取来源，不扩大当前密钥的调用权限。获取目录失败时先检查密钥、分组与模型权限，不要改用模型广场内容手工替代。
 
 网关管理员通常应让 Codex 上游身份和客户端版本保持自动同步；只有上游明确要求固定版本或自定义终端指纹时才需要覆盖。自定义后也应确保 User-Agent 首段、尾部身份和 `version` 头使用同一版本，避免陈旧身份影响上游路由。
 
@@ -83,7 +83,7 @@ Gemini 原生请求使用 `/v1beta` 路径和 `x-goog-api-key` 请求头。请�
 
 客户端是否支持自定义地址、Responses、工具调用和多模态由客户端自身决定。
 
-当密钥所属分组由 Kimi、智谱或 DeepSeek 渠道提供服务时，客户端仍使用本站统一地址。管理员可为上游账号选择 Chat Completions、Anthropic 或自适应协议；DeepSeek 账号还可选择原生 Responses。客户端无需、也不应填写上游供应商的账号地址或密钥。
+当密钥所属分组由 Kimi、智谱、DeepSeek、MiniMax 或 OpenCode 渠道提供服务时，客户端仍使用本站统一地址。管理员可为上游账号选择 Chat Completions、Anthropic 或自适应协议；DeepSeek 账号还可选择原生 Responses，OpenCode 可按 Zen/GO 账号类型和模型匹配规则分别转发到兼容协议。客户端无需、也不应填写上游供应商的账号地址或密钥。
 
 ## Grok CLI 与媒体能力
 
