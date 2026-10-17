@@ -83,7 +83,7 @@ Gemini 原生请求使用 `/v1beta` 路径和 `x-goog-api-key` 请求头。请�
 
 客户端是否支持自定义地址、Responses、工具调用和多模态由客户端自身决定。
 
-当密钥所属分组由 Kimi、智谱、DeepSeek、MiniMax 或 OpenCode 渠道提供服务时，客户端仍使用本站统一地址。管理员可为上游账号选择 Chat Completions、Anthropic 或自适应协议；DeepSeek 账号还可选择原生 Responses，OpenCode 可按 Zen/GO 账号类型和模型匹配规则分别转发到兼容协议。客户端无需、也不应填写上游供应商的账号地址或密钥。
+当密钥所属分组由 Kimi、智谱、DeepSeek、MiniMax、OpenCode、Cline、Command Code 或 TypeSafe 渠道提供服务时，客户端仍使用本站统一地址。管理员可为上游账号选择 Chat Completions、Anthropic 或自适应协议；DeepSeek 账号还可选择原生 Responses，OpenCode 可按 Zen/GO 账号类型和模型匹配规则分别转发到兼容协议，TypeSafe 还可能开放原生 System One 路径。客户端无需、也不应填写上游供应商的账号地址或密钥。
 
 ## Grok CLI 与媒体能力
 
